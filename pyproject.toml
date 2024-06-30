@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "classifiedjson"
+version = "1.0.0"
+authors = [
+  { name="Jon Guerin", email="jg@shootingsoul.com" },
+]
+description = 'Preserve types when dumping and loading data with JSON'
+readme = 'README.md'
+requires-python = '>=3.8'
+dependencies = []
+
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Operating System :: OS Independent',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Information Technology',
+    'Intended Audience :: System Administrators',
+    "License :: OSI Approved :: MIT License",
+    'Typing :: Typed',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+]
+
+[project.urls]
+'Homepage' = 'https://github.com/shootingsoul/classifiedjson'
+'Bug Tracker' = 'https://github.com/shootingsoul/classifiedjson/issues'
+'Changelog' = 'https://github.com/shootingsoul/classifiedjson/CHANGELOG.md'
+'Source' = 'https://github.com/shootingsoul/classifiedjson'
+'Download' = 'https://github.com/shootingsoul/classifiedjson/#files'
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
