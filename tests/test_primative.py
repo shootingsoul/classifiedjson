@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: Coypright © 2024 Shooting Soul Ventures, LLC <jg@shootingsoul.com>
 # SPDX-License-Identifier: MIT
 
+import math
 from tests.utils import dumps_and_loads
 
 
@@ -58,3 +59,11 @@ def test_empty():
     v = {"a": []}
     d = dumps_and_loads(v)
     assert v == d
+
+
+def test_float_special():
+    v = {'nan': float('nan'), 'inf': float("inf"), "-inf": float("-inf") }
+    d = dumps_and_loads(v)
+    assert math.isnan(d['nan']) == True
+    assert math.isinf(d['inf']) and d['inf'] > 0
+    assert math.isinf(d['-inf']) and d['-inf'] < 0

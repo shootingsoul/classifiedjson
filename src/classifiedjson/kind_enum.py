@@ -15,3 +15,4 @@ class Kind(Enum):
     BYTES = 7
     CONTAINERS = 8
     SCALARS = 9
+    FLOAT_SPECIAL = 10

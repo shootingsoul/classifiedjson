@@ -1,11 +1,14 @@
 # SPDX-FileCopyrightText: Coypright © 2024 Shooting Soul Ventures, LLC <jg@shootingsoul.com>
 # SPDX-License-Identifier: MIT
 
+import math
 from typing import Any, Callable, TextIO, List
 from logging import getLogger
 from json import JSONEncoder
 from classifiedjson.encoder_interface import IEncoder
+from classifiedjson.kind_enum import Kind
 from classifiedjson.kind_serialization import KindData, encode_kind_open, encode_kind_close
+from classifiedjson.natives.float_special import encode_float_special
 
 from classifiedjson.utils import get_type_name
 
@@ -44,7 +47,11 @@ class NativeEncoder(IEncoder):
         elif cls == bool:
             self._json_encode_and_write(obj)
         elif cls == float:
-            self._json_encode_and_write(obj)
+            if math.isfinite(obj):
+                self._json_encode_and_write(obj)
+            else:
+                # handle inf, -inf and nan
+                encode_float_special(Kind.FLOAT_SPECIAL, self, obj)
         elif cls == int:
             self._json_encode_and_write(obj)
         elif cls == str:

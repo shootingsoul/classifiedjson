@@ -14,6 +14,7 @@ from classifiedjson.standards.scalars import serialize_scalars, deserialize_scal
 from classifiedjson.natives.dict import encode_dict, deserialize_dict
 from classifiedjson.natives.array import deserialize_array, encode_array
 from classifiedjson.natives.bytes import encode_bytes, deserialize_bytes
+from classifiedjson.natives.float_special import deserialize_float_special
 from io import StringIO
 import json
 
@@ -83,6 +84,7 @@ def _build_deserializer(custom_hooks: List[Callable]) -> StandardDeserializer:
     d[Kind.BYTES] = deserialize_bytes
     d[Kind.CONTAINERS] = deserialize_containers
     d[Kind.SCALARS] = deserialize_scalars
+    d[Kind.FLOAT_SPECIAL] = deserialize_float_special
     deserializer = StandardDeserializer(d)
     return deserializer
 
