@@ -26,8 +26,8 @@ def serialize_scalars(obj: Any) -> Any:
         l[1] = list(l[1])
         return l
     elif is_match(obj, UUID):
-        # logger.debug("serialize UUID")
-        pass
+        logger.debug("serialize UUID")
+        return str(obj)
     elif is_match(obj, str):
         logger.debug("serialize standard str")
         return str(obj)
@@ -46,8 +46,8 @@ def deserialize_scalars(factory: Factory, obj: Any):
         obj[1] = tuple(obj[1])
         t = tuple(obj)
         return Decimal(t)
-    elif factory.is_match((str, int, float)):
+    elif factory.is_match((UUID, str, int, float)):
         return factory(obj)
     else:
         raise TypeError(
-            f"Wrong type.  Expected a container type (dict, list) but received '{factory}' for deserializaiton")
+            f"Wrong type.  Expected a scalar type (Decimal, UUID, str, int, float) but received '{factory}' for deserializaiton")

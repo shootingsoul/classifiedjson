@@ -3,6 +3,7 @@
 
 - Add support for float special: inf, -inf and nan
 - Add support for Decimal
+- Add support for UUID
 
 # 1.0.0 - 2024-06-29
 

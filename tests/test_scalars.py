@@ -1,7 +1,9 @@
 # SPDX-FileCopyrightText: Coypright © 2024 Shooting Soul Ventures, LLC <jg@shootingsoul.com>
 # SPDX-License-Identifier: MIT
 
+import uuid
 from decimal import Decimal
+from uuid import UUID
 from logging import getLogger
 from tests.utils import dumps_and_loads
 
@@ -74,3 +76,28 @@ def test_decimal():
     assert type(d) == Decimal
     assert v == d
 
+
+def test_uuid():
+    v = uuid.uuid1()
+    d = dumps_and_loads(v)
+    assert type(d) == UUID
+    assert v == d
+    assert v.version == d.version
+
+    v = uuid.uuid3(uuid.NAMESPACE_DNS, 'shootingsoul.com')
+    d = dumps_and_loads(v)
+    assert type(d) == UUID
+    assert v == d
+    assert v.version == d.version
+
+    v = uuid.uuid4()
+    d = dumps_and_loads(v)
+    assert type(d) == UUID
+    assert v == d
+    assert v.version == d.version
+
+    v = uuid.uuid5(uuid.NAMESPACE_DNS, 'shootingsoul.com')
+    d = dumps_and_loads(v)
+    assert type(d) == UUID
+    assert v == d
+    assert v.version == d.version
