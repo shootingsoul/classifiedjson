@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: Coypright © 2024 Shooting Soul Ventures, LLC <jg@shootingsoul.com>
 # SPDX-License-Identifier: MIT
 
+from decimal import Decimal
 from logging import getLogger
 from tests.utils import dumps_and_loads
 
@@ -44,3 +45,32 @@ def test_myfloat():
     d = dumps_and_loads(m)
     assert type(d) == Myfloat
     assert m == d
+
+def test_decimal():
+    v = Decimal("3.14")
+    d = dumps_and_loads(v)
+    assert type(d) == Decimal
+    assert v == d
+
+    v = Decimal("nan")
+    d = dumps_and_loads(v)
+    assert type(d) == Decimal
+    assert d.is_nan() == True
+
+    v = Decimal("-inf")
+    d = dumps_and_loads(v)
+    assert type(d) == Decimal
+    assert d.is_infinite() == True
+    assert d < 0
+
+    v = Decimal("inf")
+    d = dumps_and_loads(v)
+    assert type(d) == Decimal
+    assert d.is_infinite() == True
+    assert d > 0
+
+    v = Decimal("1.045753453457657657")
+    d = dumps_and_loads(v)
+    assert type(d) == Decimal
+    assert v == d
+

@@ -49,7 +49,7 @@ output
 - dict (including non-string keys)
 - list, tuple, set, frozenset
 - str, int, bool, float, None
-- enum, datetime
+- enum, datetime, Decimal
 - array, bytes
 - any subclasses of the above types
 

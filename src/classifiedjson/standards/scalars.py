@@ -12,15 +12,19 @@ from logging import getLogger
 logger = getLogger(__name__)
 
 
-# FUTURE: uuid and decimal
+#TODO: uuid and decimal, complex
 
 def serialize_scalars(obj: Any) -> Any:
     # checking dict and list last because it's for inherited dict/list only
     # thus not as common as native dict/list which are handled by encoder
     # this provides a default serailization for inherited dict/list
     if is_match(obj, Decimal):
-        # logger.debug("serialize decimal")
-        pass
+        logger.debug("serialize decimal")
+        # convert tuples to list to minimize serialization overhead, list is native
+        t = obj.as_tuple()
+        l = list(t)
+        l[1] = list(l[1])
+        return l
     elif is_match(obj, UUID):
         # logger.debug("serialize UUID")
         pass
@@ -38,7 +42,11 @@ def serialize_scalars(obj: Any) -> Any:
 
 
 def deserialize_scalars(factory: Factory, obj: Any):
-    if factory.is_match((str, int, float)):
+    if factory.is_match(Decimal):
+        obj[1] = tuple(obj[1])
+        t = tuple(obj)
+        return Decimal(t)
+    elif factory.is_match((str, int, float)):
         return factory(obj)
     else:
         raise TypeError(

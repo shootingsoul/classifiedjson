@@ -1,4 +1,9 @@
 
+# 1.1.0
+
+- Add support for float special: inf, -inf and nan
+- Add support for Decimal
+
 # 1.0.0 - 2024-06-29
 
 Initial Release
