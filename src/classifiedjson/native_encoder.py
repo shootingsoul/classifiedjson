@@ -22,9 +22,8 @@ logger = getLogger(__name__)
 # we only kick out of native loop when a non-native object is come across
 
 
-class NativeEncoder(IEncoder):
+class NativeEncoder:
     def __init__(self, stream: TextIO, default: Callable, hooks: List[Callable]) -> None:
-        super().__init__()
         self._stream = stream
         self._default = default  # to recurse back out
         self._hooks = hooks  # native hooks
