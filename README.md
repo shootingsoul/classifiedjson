@@ -183,7 +183,11 @@ class Mathy:
 
     @classmethod
     def classifiedjson_deserialize(cls, factory: Factory, obj):
-        # call constructor with serailized data
+        # type check for security to support subclass
+        if not factory.is_match(Mathy):
+            return NotImplemented
+
+        # call constructor with serailized data, can be a subclass constructor
         return factory(data=obj['data'], operator=obj['operator'])
 
 

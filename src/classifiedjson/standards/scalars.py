@@ -45,7 +45,7 @@ def deserialize_scalars(factory: Factory, obj: Any):
     if factory.is_match(Decimal):
         obj[1] = tuple(obj[1])
         t = tuple(obj)
-        return Decimal(t)
+        return factory(t)
     elif factory.is_match((UUID, str, int, float)):
         return factory(obj)
     else:

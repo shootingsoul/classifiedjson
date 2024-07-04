@@ -23,6 +23,12 @@ class Myfloat(float):
     pass
 
 
+class MyDecimal(Decimal):
+    pass
+
+class MyUUID(UUID):
+    pass
+
 def test_mystr():
     m = Mystr("abc")
     d = dumps_and_loads(m)
@@ -77,6 +83,13 @@ def test_decimal():
     assert v == d
 
 
+def test_decimal_subclass():
+    v = MyDecimal("12343134123.1231409814")
+    d = dumps_and_loads(v)
+    assert type(d) == MyDecimal
+    assert v == d
+
+
 def test_uuid():
     v = uuid.uuid1()
     d = dumps_and_loads(v)
@@ -101,3 +114,11 @@ def test_uuid():
     assert type(d) == UUID
     assert v == d
     assert v.version == d.version
+
+
+def test_uuid_subclass():
+    u = uuid.uuid4()
+    v = MyUUID(str(u))
+    d = dumps_and_loads(v)
+    assert type(d) == MyUUID
+    assert v == d

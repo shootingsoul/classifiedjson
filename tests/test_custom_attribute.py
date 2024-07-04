@@ -18,6 +18,10 @@ class CustomScalar:
 
     @classmethod
     def classifiedjson_deserialize(cls, factory: Factory, obj):
+        # allow for subclass requires type check
+        if not factory.is_match(CustomScalar):
+            return NotImplemented
+
         return factory(obj)
 
 
@@ -40,6 +44,7 @@ class CustomDataclass:
 
     @classmethod
     def classifiedjson_deserialize(cls, factory: Factory, obj):
+        # the return type is fixed here, so no need to do a factory type check
         return CustomDataclass(**obj)
 
 
